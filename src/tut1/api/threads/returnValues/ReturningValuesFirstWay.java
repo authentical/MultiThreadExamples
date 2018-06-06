@@ -1,5 +1,11 @@
 package tut1.api.threads.returnValues;
 
+//
+// "Blocking way" to return a value from a Runnable
+//
+//
+//
+
 import tuts.common.ValueReturningClassA;
 
 public class ReturningValuesFirstWay {
