@@ -57,7 +57,7 @@ public class ValueReturningClassA implements Runnable {
         if(!done){
             synchronized (this){
                 try {
-                    System.out.println(Thread.currentThread().getName() + " is waiting");
+                    System.out.println(Thread.currentThread().getName() + " is waiting=========");
                     this.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
