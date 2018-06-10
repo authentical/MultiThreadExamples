@@ -28,7 +28,7 @@ public class LoopTaskE implements Runnable{
         for(int i=1; ; i++){
             System.out.println("["+ currentThreadName + "] <" + taskId + ">" + "TICK TICK "+ i);
             try{
-                TimeUnit.MILLISECONDS.sleep((long)Math.random() * 3000);}
+                TimeUnit.MILLISECONDS.sleep(200);}
             catch(InterruptedException e){}
 
             // READ shutdown - Make sure the object can only read XOR write the variable
@@ -39,10 +39,6 @@ public class LoopTaskE implements Runnable{
                 }
             }
         }
-
-
-
-
     }
 
     // A method that can be called from another class to shut this class

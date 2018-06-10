@@ -40,12 +40,16 @@ public class TaskResult<S, R> {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
 
         TaskResult<?, ?> that = (TaskResult<?, ?>) o;
 
         if (!taskId.equals(that.taskId)) return false;
-        return result.equals(that.result);
+
+        if(!result.equals(that.result)) return false;
+
+        return true;
     }
 
     @Override
