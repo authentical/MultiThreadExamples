@@ -14,7 +14,6 @@ public class LoopTaskE implements Runnable{
 
     // Constructor
     public LoopTaskE(){
-        //this.instanceNumber = ++count;
         this.taskId = "LoopTaskE" + ++count;
     }
 
@@ -31,9 +30,18 @@ public class LoopTaskE implements Runnable{
             try{
                 TimeUnit.MILLISECONDS.sleep((long)Math.random() * 3000);}
             catch(InterruptedException e){}
+
+            // READ shutdown
+            synchronized (this){
+                if(shutdown) {
+                    break;
+                }
+            }
         }
 
-        System.out.println("***** ["+ currentThreadName + "] <" + taskId + "> DONE *****");
+
+
+
     }
 
     // A method that can be called from another class to shut this class
@@ -41,6 +49,7 @@ public class LoopTaskE implements Runnable{
     public void cancel(){
         System.out.println(Thread.currentThread().getName() + " "+ taskId + " Shutting down *****");
 
+        // WRITE shutdown
         synchronized (this){
             this.shutdown = true;
         }
