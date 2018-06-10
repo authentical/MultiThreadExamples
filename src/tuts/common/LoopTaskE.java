@@ -31,7 +31,8 @@ public class LoopTaskE implements Runnable{
                 TimeUnit.MILLISECONDS.sleep((long)Math.random() * 3000);}
             catch(InterruptedException e){}
 
-            // READ shutdown
+            // READ shutdown - Make sure the object can only read XOR write the variable
+            //
             synchronized (this){
                 if(shutdown) {
                     break;
@@ -49,7 +50,7 @@ public class LoopTaskE implements Runnable{
     public void cancel(){
         System.out.println(Thread.currentThread().getName() + " "+ taskId + " Shutting down *****");
 
-        // WRITE shutdown
+        // WRITE shutdown - - Make sure the object can only read XOR write the variable
         synchronized (this){
             this.shutdown = true;
         }
