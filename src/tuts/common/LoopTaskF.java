@@ -31,6 +31,7 @@ public class LoopTaskF implements Runnable{
 
             doSomeWork();
 
+            //
             if(Thread.interrupted()){
                 System.out.println("[" + currentThreadName + "] <" + taskId + "> Interrupted. Cancelling...");
                 break;

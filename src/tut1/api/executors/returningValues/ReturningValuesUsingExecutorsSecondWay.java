@@ -37,6 +37,11 @@ public class ReturningValuesUsingExecutorsSecondWay {
 
         for(int i =0; i< 4; i++){
             try {
+                /*
+                        Can use non-blocking .poll() to get results but
+                        it returns null if there is no result available/ready
+
+                 */
                 System.out.println(tasks.take().get());
             } catch (InterruptedException e) {
                 e.printStackTrace();

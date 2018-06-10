@@ -15,6 +15,7 @@ public class ReturningValuesUsingExecutorsFirstWay {
 
         ExecutorService exec = Executors.newCachedThreadPool(new NamedThreadsFactory());
 
+        // /submit returns an instance of Future
         Future<Integer> result1 = exec.submit(new CalculationTaskA(2,3,2000));
         Future<Integer> result2 = exec.submit(new CalculationTaskA(5,3,1000));
         Future<Integer> result3 = exec.submit(new CalculationTaskA(12,3,500));
@@ -29,6 +30,10 @@ public class ReturningValuesUsingExecutorsFirstWay {
         exec.shutdown();
 
         try {
+            /*
+                    .get() blocks until result is available
+            */
+
             System.out.println("Result1 = " + result1.get());
             System.out.println("Result2 = " + result2.get());
             System.out.println("Result3 = " + result3.get());
