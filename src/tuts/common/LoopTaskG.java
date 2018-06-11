@@ -53,6 +53,12 @@ public class LoopTaskG implements Runnable {
     private String taskId;
 
 
+    public LoopTaskG() {
+        this.instanceNumber = ++count;
+        this.taskId = "LoopTaskG" + instanceNumber;
+    }
+
+    // Blocks but handles interrupts
     @Override
     public void run() {
         String currentThreadName = Thread.currentThread().getName();
@@ -72,11 +78,5 @@ public class LoopTaskG implements Runnable {
         }
 
         System.out.println("***** [" + currentThreadName + "] <" + taskId + "> DONE ******");
-    }
-
-
-    public LoopTaskG() {
-        this.instanceNumber = ++count;
-        this.taskId = "LoopTaskG" + instanceNumber;
     }
 }

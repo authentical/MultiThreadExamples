@@ -34,6 +34,7 @@ public class CalculationTaskB implements Callable<TaskResult<String, Integer>> {
     }
 
 
+    // Sleeps, blocks and does not handle interrupt
     @Override
     public TaskResult<String,Integer> call() {
         String currentThreadName = Thread.currentThread().getName();

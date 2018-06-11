@@ -10,7 +10,7 @@ public class LoopTaskA implements Runnable{
         private int id;
 
 
-
+        // Blocking and does not handle interrupts
         @Override
         public void run(){
             System.out.println("#### <TASK-" + id + "> STARTING ####");
@@ -18,8 +18,8 @@ public class LoopTaskA implements Runnable{
             for(int i=10; i>0; i--){
                 System.out.println("<TASK-"+ id + ">" + "TICK TICK "+ i);
                 try{
-                    TimeUnit.MILLISECONDS.sleep((long)Math.random() * 1000);}
-                catch(InterruptedException e){}
+                    TimeUnit.MILLISECONDS.sleep(1000);}
+                catch(InterruptedException e){e.printStackTrace();}
             }
 
             System.out.println("#### <TASK-" + id + "> DONE ####");

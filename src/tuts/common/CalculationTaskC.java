@@ -20,6 +20,8 @@ public class CalculationTaskC implements Callable<Long> {
         this.taskId = "CalcTaskC-" + ++count;
     }
 
+
+    // Non-blocking and handles interrupt
     @Override
     public Long call(){
 
