@@ -2,9 +2,7 @@ package tut1.api.executors.terminating;
 
 import tuts.common.*;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class TerminatingAllExecutorTasks {
     public static void main(String[] args) {
@@ -17,11 +15,15 @@ public class TerminatingAllExecutorTasks {
         CalculationTaskC t4 = new CalculationTaskC();
         CalculationTaskB t5 = new CalculationTaskB(2,3,9000);
 
+        // NOTE: Usage of Future here!
+
         exec.execute(t1);
         exec.execute(t2);
-        exec.submit(t3);
-        exec.submit(t4);
-        exec.submit(t5);
+        Future<Long> t3Future = exec.submit(t3);  // <---------------
+        Future<Long> t4Future = exec.submit(t4);  // <-----------------------
+        Future<TaskResult<String, Integer>> t5Future = exec.submit(t5); // <-------
+
+
 
         try {
             TimeUnit.MILLISECONDS.sleep(1000);
@@ -33,9 +35,33 @@ public class TerminatingAllExecutorTasks {
 
         try {
             System.out.println("\nALL THREADS terminated. " +
-                    exec.awaitTermination(500, TimeUnit.MILLISECONDS) + "\n");
+                    exec.awaitTermination(5000, TimeUnit.MILLISECONDS) + "\n");
 
         }catch(InterruptedException e){e.printStackTrace();}
+
+        // Get() results if available from our Future tasks
+        try {
+            System.out.println("FactTaskB returned: " + t3Future.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println("CalcTaskB returned: " + t5Future.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            System.out.println("CalcTaskB returned: **ERROR** CalcTaskB got ExecutionException");
+            e.getCause().printStackTrace();
+        }
+        try {
+            System.out.print("CalcTaskC returned: " + t4Future.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
     }
 }

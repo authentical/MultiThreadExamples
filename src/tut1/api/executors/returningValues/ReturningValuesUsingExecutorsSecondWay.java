@@ -42,7 +42,9 @@ public class ReturningValuesUsingExecutorsSecondWay {
                         it returns null if there is no result available/ready
 
                  */
-                System.out.println(tasks.take().get());
+                System.out.println(tasks.take().get()); // <----------- .poll / .take
+
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {

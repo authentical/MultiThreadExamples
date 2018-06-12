@@ -36,17 +36,15 @@ public class CalculationTaskB implements Callable<TaskResult<String, Integer>> {
 
     // Sleeps, blocks and does not handle interrupt
     @Override
-    public TaskResult<String,Integer> call() {
+    public TaskResult<String,Integer> call() throws Exception {
         String currentThreadName = Thread.currentThread().getName();
 
         System.out.println("#### {"+currentThreadName +"] <"+ taskId + "> STARTING #####");
         System.out.println("[" + currentThreadName + "] <" +taskId + "> Sleeping for " + sleepTime + " ms");
 
-        try {
-            TimeUnit.MILLISECONDS.sleep(sleepTime);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        TimeUnit.MILLISECONDS.sleep(sleepTime);
+
 
         System.out.println("***** ["+currentThreadName +"] <" + taskId + "> DONE ******");
 
