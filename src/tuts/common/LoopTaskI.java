@@ -1,19 +1,23 @@
 package tuts.common;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-public class LoopTaskD implements Runnable{
+public class LoopTaskI implements Runnable{
 
     private static int count =0;
     private int instanceNumber;
     private String taskId;
     private long sleepTime;
+    private CountDownLatch doneCountLatch;
+
 
     // Constructor
-    public LoopTaskD(long sleepTime){
+    public LoopTaskI(long sleepTime, CountDownLatch doneCountLatch){
         this.instanceNumber = ++count;
-        this.taskId = "LoopTaskD" + instanceNumber;
+        this.taskId = "LoopTaskI" + instanceNumber;
         this.sleepTime = sleepTime;
+        this.doneCountLatch =  doneCountLatch;
     }
 
     // Blocking
@@ -35,8 +39,12 @@ public class LoopTaskD implements Runnable{
         }
 
         System.out.println("***** ["+ currentThreadName + ", " + threadType + "] <" + taskId + "> DONE *****");
+
+
+        if(doneCountLatch !=null){
+            doneCountLatch.countDown();
+            System.out.println("***** ["+ currentThreadName + ", " + threadType + "] <" + taskId + "> LATCH COUNT = " + doneCountLatch.getCount());
+        }
     }
-
-
 
 }

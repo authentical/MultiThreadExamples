@@ -16,6 +16,10 @@ public class ReturningValuesSecondWay {
 
         ValueReturningClassB task1 = new ValueReturningClassB(2,3,2000,
                 new SumObserver("task-1"));
+
+
+
+
         Thread t1 = new Thread(task1, "Thread-1");
         ValueReturningClassB task2 = new ValueReturningClassB(3,4,1000,
                 new SumObserver("task-2"));
