@@ -24,7 +24,7 @@ public class JoiningExecutorThreads {
 
 
         try{
-            doneSignal.await(); //
+            doneSignal.await(); //  Wait for doneSignal count down latches=0
             System.out.println(".............. Finished waiting");
         }catch (InterruptedException e){e.printStackTrace();}
 
