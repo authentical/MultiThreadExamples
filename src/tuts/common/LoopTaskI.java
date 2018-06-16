@@ -42,7 +42,7 @@ public class LoopTaskI implements Runnable{
 
 
         if(doneCountLatch !=null){
-            doneCountLatch.countDown();
+            doneCountLatch.countDown(); // = 1 task has completed
             System.out.println("***** ["+ currentThreadName + ", " + threadType + "] <" + taskId + "> LATCH COUNT = " + doneCountLatch.getCount());
         }
     }

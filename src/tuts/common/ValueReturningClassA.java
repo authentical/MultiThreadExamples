@@ -43,9 +43,12 @@ public class ValueReturningClassA implements Runnable {
 
         done = true;
 
+        // Synchronized is used so notifyAll() cannot occur at the same time
+        // as wait().
         synchronized (this){
             System.out.println("["+ currentThreadName + "] <" + taskId + "> NOTIFY.....");
-            this.notifyAll();
+            this.notifyAll();   // I forgot now... what happens when .notify occurs
+            // before getSum() is called.... ANSWER: if(!done) is skipped and sum is returned !
         }
     }
 
@@ -58,7 +61,10 @@ public class ValueReturningClassA implements Runnable {
             synchronized (this){
                 try {
                     System.out.println(Thread.currentThread().getName() + " is waiting=========");
-                    this.wait();
+                    this.wait();    // Thread is set to wait() however I forget now if
+                    // synchornized block BLOCKS another synchronized block....
+                    // If that is so then how would the run() synchronized block execute
+                    // notifyAll()...   **TODO** REVIEW SYNCHRONIZED
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

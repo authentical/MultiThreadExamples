@@ -14,6 +14,7 @@ public class JoiningExecutorThreads {
 
         ExecutorService exec = Executors.newCachedThreadPool(new NamedThreadsFactory());
 
+        // When tasks have finished, join main thread
         CountDownLatch doneSignal = new CountDownLatch(2);
 
         exec.execute(new LoopTaskI(1, doneSignal));
@@ -23,7 +24,7 @@ public class JoiningExecutorThreads {
 
 
         try{
-            doneSignal.await();
+            doneSignal.await(); //
             System.out.println(".............. Finished waiting");
         }catch (InterruptedException e){e.printStackTrace();}
 
