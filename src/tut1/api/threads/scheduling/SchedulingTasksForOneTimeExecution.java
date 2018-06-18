@@ -6,15 +6,16 @@ import tuts.utils.TimeUtils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public class SchedulingTasksForOneTimeExecution {
 
     private static SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MMM-yyy HH:mm:ss.SSS");
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // If you run Timer as a USER THREAD, it may take a long time to terminate
-        Timer timer = new Timer("Timer-Thread", false); // Daemon mode
+        Timer timer = new Timer("Timer-Thread", true); // Daemon mode
 
         // Set up scheduleTime and currentTime
         // and Print currentTime
@@ -26,14 +27,14 @@ public class SchedulingTasksForOneTimeExecution {
 
         // Run scheduled task1 at scheduledTime
         // Print scheduledTime AS CALCULATED and WITHOUT querying task
-        timer.schedule(new ScheduledTaskA(0), scheduledTime);
+        timer.schedule(new ScheduledTaskA(8000), scheduledTime);
         System.out.println("Task-1 scheduled for " + dateFormatter.format(scheduledTime));
 
 
 
         // Run scheduled task2 in delayms1 milliseconds from now
-        long delayms1 = 10000;
-        ScheduledTaskA task2 = new ScheduledTaskA(0);
+        long delayms1 = 1000;
+        ScheduledTaskA task2 = new ScheduledTaskA(4000);
 
         timer.schedule(task2, delayms1);
         System.out.println("Task-2 scheduled for " +
@@ -59,5 +60,15 @@ public class SchedulingTasksForOneTimeExecution {
         timer.schedule(task4, scheduledTime2);
         System.out.println("Task-4 scheduled for " +
                 dateFormatter.format(new Date(task4.scheduledExecutionTime())));
+        task4.cancel();
+
+
+
+
+        TimeUnit.MILLISECONDS.sleep(14000);
+        System.out.println("Cancelling timer...................");
+        timer.cancel();
+
+
     }
 }
