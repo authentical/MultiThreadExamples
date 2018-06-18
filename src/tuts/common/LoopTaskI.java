@@ -3,6 +3,15 @@ package tuts.common;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+// LoopTaskI has a CountDownLatch object
+// LoopTaskI calls CountDownLatch.countDown() (which uses Sync method (extends AbstractQueuedSynchronizer))
+// to decrement the number of tasks MAIN's CountDownLatch.await() will wait for.
+//
+// If CountDownLatch doneSignal > 0, MAIN will continue waiting
+// otherwise if doneSignal reaches 0, MAIN will stop waiting and continue execution
+
+
+
 public class LoopTaskI implements Runnable{
 
     private static int count =0;
